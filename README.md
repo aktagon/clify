@@ -1,5 +1,7 @@
 # clify - Command-line Assistant
 
+![Demo](demo.svg)
+
 A CLI tool that tells you how to run command-line programs on Linux, macOS, and
 Windows command-line using human language.
 

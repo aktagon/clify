@@ -1,13 +1,13 @@
 package tui
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
 	"clify/internal/client"
 	"clify/internal/config"
 	"clify/internal/models"
 	"clify/internal/safety"
+	"context"
+	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
@@ -68,12 +68,12 @@ func NewModel(client *client.ClaudeClient, cache *config.CacheManager) *Model {
 			Mode:            "input",
 			SelectedCommand: 0,
 		},
-		client:      client,
-		cache:       cache,
-		classifier:  safety.NewClassifier(),
-		textInput:   ti,
-		spinner:     NewSpinner(),
-		loading:     false,
+		client:       client,
+		cache:        cache,
+		classifier:   safety.NewClassifier(),
+		textInput:    ti,
+		spinner:      NewSpinner(),
+		loading:      false,
 		historyIndex: -1,
 	}
 }
@@ -111,13 +111,13 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.state.SelectedCommand = 0
 		m.textInput.Blur()
 		m.lastError = ""
-		
+
 		// Refresh autocomplete suggestions with updated search history
 		searchHistory := m.cache.GetSearchHistory()
 		if len(searchHistory) > 0 {
 			m.textInput.SetSuggestions(searchHistory)
 		}
-		
+
 		return m, nil
 
 	case msgError:
@@ -259,13 +259,13 @@ func (m *Model) handleSelectionMode(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.textInput.SetValue("")
 		m.textInput.Focus()
 		m.lastError = ""
-		
+
 		// Refresh autocomplete suggestions
 		searchHistory := m.cache.GetSearchHistory()
 		if len(searchHistory) > 0 {
 			m.textInput.SetSuggestions(searchHistory)
 		}
-		
+
 		return m, nil
 	}
 
@@ -393,7 +393,7 @@ func (m *Model) renderSelectionView() string {
 	title := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("35")).
-		Render("Command Results")
+		Render("Query Results")
 	b.WriteString(title)
 	b.WriteString("\n\n")
 
