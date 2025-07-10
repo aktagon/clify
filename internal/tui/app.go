@@ -348,7 +348,7 @@ func (m *Model) renderInputView() string {
 	title := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("35")).
-		Render("clify - AI Command Helper")
+		Render("Clify → Natural-Language → CLI commands")
 
 	b.WriteString(title)
 	b.WriteString("\n\n")

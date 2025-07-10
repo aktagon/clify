@@ -1,19 +1,52 @@
-# clify - Command-line Assistant
+# Clify: Transform Natural Language into Terminal Commands
+
+[![Build Status](https://github.com/aktagon/clify/workflows/CI/badge.svg)](https://github.com/aktagon/clify/actions)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/aktagon/clify)](https://github.com/aktagon/clify)
+[![Release](https://img.shields.io/github/v/release/aktagon/clify)](https://github.com/aktagon/clify/releases)
 
 ![Demo](demo.svg)
 
-A CLI tool that tells you how to run command-line programs on Linux, macOS, and
-Windows command-line using human language.
+Ask "create a git branch from a tag" and get the exact commands you need. Clify converts natural language into executable terminal commands using AI.
 
-## Features
+## Quick Start
 
-- **Caching**: Stores answers locally to avoid repeated API calls for the same questions
-- **Autocomplete**: Suggests previously asked questions as you type
-- **Cross-platform**: Works on Linux, macOS, and Windows. Automatically detects your OS and provides relevant command-line solutions.
+```bash
+# Install
+brew install aktagon/tap/clify
+
+# Configure with your Anthropic API key
+clify setup
+
+# Ask questions
+clify "find large files in current directory"
+```
+
+**Output:**
+
+```
+🟡 find . -type f -size +100M -exec ls -lh {} \;
+    Find files larger than 100MB and show their sizes
+
+🟢 du -ah . | sort -hr | head -20
+    Show top 20 largest files and directories by size
+
+🟢 ls -laSh | head -20
+    List files sorted by size (largest first)
+```
+
+## Why Choose Clify?
+
+| Tool      | Strengths                              | Limitations           |
+| --------- | -------------------------------------- | --------------------- |
+| **Clify** | AI-powered, contextual, conversational | Requires API key      |
+| `tldr`    | Fast, offline, community examples      | Limited coverage      |
+| `man`     | Comprehensive documentation            | Complex, overwhelming |
+
+Clify understands context, suggests alternatives, and adapts to your operating system automatically.
 
 ## Installation
 
-### Homebrew (macOS/Linux)
+### macOS and Linux
 
 ```bash
 brew install aktagon/tap/clify
@@ -22,10 +55,12 @@ brew install aktagon/tap/clify
 ### From Source
 
 ```bash
+git clone https://github.com/aktagon/clify
+cd clify
 go build -o clify
 ```
 
-### Using make
+### Build with Make
 
 ```bash
 make build
@@ -40,43 +75,29 @@ make install
 clify
 ```
 
-This starts an interactive session where you can ask questions and get
-autocomplete suggestions based on your history.
+Start a session with autocomplete and command history.
 
-### Direct Query Mode
+### Direct Queries
 
 ```bash
-clify "create a git branch from a tag"
-```
-
-This starts an interactive session with the query "create a git branch from a tag".
-
-**Example output:**
-
-```
-Create a new Git branch based on a specific tag, allowing you to start development from that tagged point in history
-
-🟡 git checkout -b new-branch-name tag-name
-    Create and switch to a new branch based on the specified tag
-
-🟢 git branch new-branch-name tag-name
-    Create a new branch from a tag without switching to it
-
-🟢 git tag --list
-    List all available tags to see which one you want to branch from
+clify "compress multiple files into tar.gz"
+clify "monitor network traffic on port 80"
+clify "batch rename files with regex"
 ```
 
 ## Configuration
 
-Run the setup command to configure your API key:
+### Initial Setup
 
 ```bash
 clify setup
 ```
 
-This will prompt you to enter your Anthropic API key and create a configuration file.
+Enter your [Anthropic API key](https://console.anthropic.com/) when prompted.
 
-The app stores configuration in `~/.clify/config.yaml`:
+### Configuration File
+
+Clify stores settings in `~/.clify/config.yaml`:
 
 ```yaml
 api_key: "your-api-key-here"
@@ -86,31 +107,38 @@ model: "claude-3-sonnet-20240229"
 
 ### Environment Variables
 
-- `ANTHROPIC_API_KEY` - Optional. Overrides the API key from config file if set
+Set `ANTHROPIC_API_KEY` to override the config file API key.
 
-## Cache
+## Features
 
-The tool automatically caches responses in `~/.clify/cache.json` to avoid
-repeated API calls for the same questions.
-
-## Dependencies
-
-- Go 1.21+
-- github.com/aktagon/llmkit
-- github.com/charmbracelet/bubbletea
+- **Smart Caching**: Stores responses locally to eliminate duplicate API calls
+- **Autocomplete**: Suggests previous questions as you type
+- **OS Detection**: Provides commands specific to Linux, macOS, or Windows
+- **Multiple Solutions**: Shows alternative approaches for complex tasks
 
 ## Development
 
-To build from source:
+### Requirements
+
+- Go 1.21+
+- [Anthropic API key](https://console.anthropic.com/)
+
+### Build
 
 ```bash
 git clone https://github.com/aktagon/clify
 cd clify
 go build -o clify
+# or make build
 ```
 
-To run tests:
+### Test
 
 ```bash
 go test ./...
 ```
+
+## Dependencies
+
+- [github.com/aktagon/llmkit](https://github.com/aktagon/llmkit) - LLM integration
+- [github.com/charmbracelet/bubbletea](https://github.com/charmbracelet/bubbletea) - Terminal UI
