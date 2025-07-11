@@ -1,23 +1,23 @@
-class Howdoi < Formula
+class Clify < Formula
   desc "Command-line assistant for Linux, macOS, and Windows powered by Anthropic Claude"
-  homepage "https://github.com/aktagon/llmkit"
-  url "https://github.com/aktagon/llmkit/archive/refs/heads/master.tar.gz"
-  version "0.1.0"
+  homepage "https://github.com/aktagon/clify"
+  # NOTE: The url, version, and sha256 are updated by the github action (.github/workflows/release.yml) automatically
+  url "https://github.com/aktagon/clify/archive/refs/heads/master.tar.gz"
+  version "0.2.0"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
   license "MIT"
 
   depends_on "go" => :build
 
   def install
-    cd "examples/anthropic/clify" do
-      system "go", "build", *std_go_args(ldflags: "-s -w"), "-o", bin/"clify"
-    end
+    system "go", "build", *std_go_args(ldflags: "-s -w"), "-o", bin/"clify"
   end
 
   def caveats
     <<~EOS
       clify requires an Anthropic API key to function.
-      Set your API key as an environment variable:
+
+      Run clify setup or set your API key as an environment variable:
         export ANTHROPIC_API_KEY="your-api-key-here"
 
       You can add this to your shell profile (~/.zshrc, ~/.bashrc, etc.)

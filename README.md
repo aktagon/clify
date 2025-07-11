@@ -12,7 +12,8 @@ Ask "create a git branch from a tag" and get the exact commands you need. Clify 
 
 ```bash
 # Install
-brew install aktagon/tap/clify
+brew tap aktagon/clify https://github.com/aktagon/clify
+brew install clify
 
 # Configure with your Anthropic API key
 clify setup
@@ -49,7 +50,8 @@ Clify understands context, suggests alternatives, and adapts to your operating s
 ### macOS and Linux
 
 ```bash
-brew install aktagon/tap/clify
+brew tap aktagon/clify https://github.com/aktagon/clify
+brew install clify
 ```
 
 ### From Source
