@@ -136,12 +136,11 @@ jobs:
           SHA256=$(curl -sL "$TARBALL_URL" | sha256sum | cut -d' ' -f1)
 
           # Update the formula
-          sed -i "s|url \".*\"|url \"$TARBALL_URL\"|" homebrew/clify.rb
-          sed -i "s|version \".*\"|version \"${{ steps.increment_version.outputs.new_version }}\"|" homebrew/clify.rb
-          sed -i "s|sha256 \".*\"|sha256 \"$SHA256\"|" homebrew/clify.rb
+          sed -i "s|url \".*\"|url \"$TARBALL_URL\"|" Formula/clify.rb
+          sed -i "s|version \".*\"|version \"${{ steps.increment_version.outputs.new_version }}\"|" Formula/clify.rb
+          sed -i "s|sha256 \".*\"|sha256 \"$SHA256\"|" Formula/clify.rb
 
           # Commit and push the changes
-          git add homebrew/clify.rb
+          git add Formula/clify.rb
           git commit -m "Update Homebrew formula to ${{ steps.increment_version.outputs.new_version }}"
           git push origin master
-
