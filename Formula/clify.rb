@@ -2,9 +2,9 @@ class Clify < Formula
   desc "Command-line assistant for Linux, macOS, and Windows powered by Anthropic Claude"
   homepage "https://github.com/aktagon/clify"
   # NOTE: The url, version, and sha256 are updated by the github action (.github/workflows/release.yml) automatically
-  url "https://github.com/aktagon/clify/archive/refs/tags/v0.1.4.tar.gz"
-  version "v0.1.4"
-  sha256 "9f69f5ee4568e6db278cc58017f82843923c02c56c96643de8bd8699af7d0eb5"
+  url "https://github.com/aktagon/clify/archive/refs/tags/v0.1.5.tar.gz"
+  version "v0.1.5"
+  sha256 "32cccb7e4d2d9910511f92d659ad0550fc1d15ed80512f2b4101a3fc8bd1231f"
   license "MIT"
 
   depends_on "go" => :build
